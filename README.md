@@ -18,3 +18,9 @@ Categories:
   - quote
   - task
   - review
+
+  ### TODOs
+  - Helper
+  - ~~Option to just write to files~~
+  - Save last state
+  - Break it into modules

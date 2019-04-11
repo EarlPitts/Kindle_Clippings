@@ -1,7 +1,13 @@
-FILENAME = "My Clippings.txt"
+#!/bin/python
+import os
 
-def parse():
-    with open("Kindle_Clippings_Parser/"+FILENAME) as file:
+FILENAME = "My Clippings.txt"
+DATA_FOLDER = "Data/"
+TAGGED = "Data/Tagged/"
+
+def parse(mode):
+
+    with open(FILENAME) as file:
         data = file.readlines()
 
         clippings = []
@@ -15,11 +21,13 @@ def parse():
                 clipping.append(line)
 
         for clipping in clippings:
-            handle_clipping(clipping)
-            print("next")
+            if mode == "-i":
+                manual(clipping)
+            if mode == "-a":
+                auto(clipping)
 
 
-def handle_clipping(clipping):
+def manual(clipping):
     Title = clipping[0]
     Metadata = clipping[1].split("|")
     Page = Metadata[0]
@@ -33,23 +41,22 @@ def handle_clipping(clipping):
     tag = input("Add tag: ")
     if tag == "x":
         return
+
+    if not os.path.exists(TAGGED + tag):
+        os.makedirs(TAGGED + tag)
     
-    with open(Title + "_" + tag, "a") as file:
+    with open(TAGGED + tag + "/" + Title, "a") as file:
         file.write(Text + "\n") 
     file.close()
 
-            
 
-# def manage_clipping(clipping):
-#     Title = clipping[0]
-#     Metadata = clipping[1].split("|")
-#     Page = Metadata[0]
-#     Date = Metadata[1]
-#     Text = clipping[3]
-#     print("Title: " + Title)
-#     print("Page Number: " + Page)
-#     print("Date: " + Date)
-#     print("Text: " + Text)
+def auto(clipping):
+    Title = clipping[0]
+    Text = clipping[3]
 
+    if not os.path.exists(DATA_FOLDER):
+        os.makedirs(DATA_FOLDER)
 
-parse()
+    with open(DATA_FOLDER + Title, "a") as file:
+        file.write(Text + "\n")
+    file.close()
