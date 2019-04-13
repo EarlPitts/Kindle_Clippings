@@ -20,7 +20,7 @@ Categories:
   - review
 
   ### TODOs
-  - Helper
-  - ~~Option to just write to files~~
   - Save last state
   - Break it into modules
+  - Make the interactive parsing operate with dicts
+  - Curses?
