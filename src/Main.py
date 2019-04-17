@@ -37,8 +37,9 @@ def main():
         helper()
     else:
         reader = Reader(FILENAME)
-        writer = Writer(tags, DATA_FOLDER)
+        writer = Writer(tags, DATA_FOLDER, TAGGED)
         clippings = reader.read()
+        print(type(clippings))
         if option == "-i":
             writer.manual(clippings)
 

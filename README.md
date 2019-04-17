@@ -24,6 +24,5 @@ Categories:
   - Break it into modules
   - Make the interactive parsing operate with dicts
   - Curses?
-  - configba txt helye
   - export module
   - export options

@@ -14,7 +14,7 @@ class Reader:
 
             for line in data:
                 if line == "==========\n":
-                    clippings.append(clipping.copy())
+                    clippings.append(tuple(clipping.copy()))
                     clipping.clear()
                 else:
                     clipping.append(line)
