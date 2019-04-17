@@ -1,43 +1,50 @@
 #!env/bin/python
-from Parser import Parser
+from Reader import Reader 
+from Writer import Writer
+
 import sys
 import os
 
-
-FILENAME = "My Clippings.txt"
-DATA_FOLDER = "Data/"
-TAGGED = "Data/Tagged/"
+#FILENAME = "My Clippings.txt"
+#DATA_FOLDER = "Data/"
+#TAGGED = "Data/Tagged/"
 CONFIG_FILE = ".config"
 
 def main():
 
     tags = []
 
-
     if not os.path.exists(CONFIG_FILE):
         print("Error, config file not found!") 
 
     with open(CONFIG_FILE, "r") as file:
         for line in file:
-            tags.append(line)
+            if "#" in line:
+                pass
+            if "FILENAME" in line:
+                FILENAME = line.split("=")[1].strip()
+            if "DATA_FOLDER" in line:
+                DATA_FOLDER = line.split("=")[1].rstrip()
+            if "TAGGED_FOLDER" in line:
+                TAGGED = line.split("=")[1].rstrip()
+            if "TAGS" in line:
+                tags = line.split("=")[1].rstrip().split(",")
     file.close()
-
-    if len(sys.argv) == 3:
-        mode = sys.argv[2]
 
     option = sys.argv[1]
 
-
     if option in ["-h", "--help"]:
         helper()
+    else:
+        reader = Reader(FILENAME)
+        writer = Writer(tags, DATA_FOLDER)
+        clippings = reader.read()
+        if option == "-i":
+            writer.manual(clippings)
 
-    if option in ["-p", "--parse"]:
-        parser = Parser(FILENAME, DATA_FOLDER, TAGGED, tags)
-        if mode == "-i":
-            parser.manual()
+        if option == "-a":
+            writer.auto(clippings)
 
-        if mode == "-a":
-            parser.auto()
 
 def helper():
     print(
@@ -45,7 +52,8 @@ def helper():
             A simple script to manage Kindle clippings\n\n\
             Options:\n\
             \t -h, --help\tPrint this help\n\
-            \t -p, --parse\tRead Clippings.txt file\n"
+            \t -a, --auto\tAuto mode\n\
+            \t -i, --i\tInteractive mode\n"
             )
 
 #def default_config():
