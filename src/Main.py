@@ -5,6 +5,8 @@ from Writer import Writer
 import sys
 import os
 
+DEBUG = True
+
 #FILENAME = "My Clippings.txt"
 #DATA_FOLDER = "Data/"
 #TAGGED = "Data/Tagged/"
@@ -19,8 +21,8 @@ def main():
 
     with open(CONFIG_FILE, "r") as file:
         for line in file:
-            if "#" in line:
-                pass
+            #if "#" in line:
+            #    pass
             if "FILENAME" in line:
                 FILENAME = line.split("=")[1].strip()
             if "DATA_FOLDER" in line:
@@ -31,6 +33,9 @@ def main():
                 tags = line.split("=")[1].rstrip().split(",")
     file.close()
 
+    if len(sys.argv) == 1:
+        helper()
+
     option = sys.argv[1]
 
     if option in ["-h", "--help"]:
@@ -39,7 +44,7 @@ def main():
         reader = Reader(FILENAME)
         writer = Writer(tags, DATA_FOLDER, TAGGED)
         clippings = reader.read()
-        print(type(clippings))
+        #print(type(clippings))
         if option == "-i":
             writer.manual(clippings)
 

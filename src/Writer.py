@@ -60,6 +60,6 @@ class Writer:
             if not os.path.exists(self.data_folder):
                 os.makedirs(self.data_folder)
 
-            with open(self.data_folder + Title, "a") as file:
+            with open(self.data_folder + str(Title).rstrip() + '.md', "a") as file:
                 file.write(Text + "\n")
             file.close()
