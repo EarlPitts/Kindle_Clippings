@@ -21,8 +21,6 @@ Categories:
 
   ### TODOs
   - Save last state
-  - Break it into modules
-  - Make the interactive parsing operate with dicts
-  - Curses?
+    - Curses?
   - export module
   - export options
