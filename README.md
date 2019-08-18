@@ -12,7 +12,7 @@
   - if tag is x -> skip it
   - else store in file for that tag
 
-Categories:
+## Categories:
   - no categories
   - anki
   - quote
@@ -24,3 +24,5 @@ Categories:
     - Curses?
   - export module
   - export options
+  - argsparse
+  - configparse
