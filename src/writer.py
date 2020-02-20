@@ -9,7 +9,7 @@ class Writer:
 
     def __init__(self, tags, data_folder, tagged):
         self.data_folder = data_folder
-        self.tags = tags
+        self.tags = tags.split(',')
         self.tagged = tagged
 
 
@@ -55,7 +55,7 @@ class Writer:
                 if not os.path.exists(self.tagged + d_tag):
                     os.makedirs(self.tagged + d_tag)
 
-                with open(self.tagged + d_tag + "/" + clipping[0], "a") as file:
+                with open(self.tagged + '/' + d_tag + '/' + clipping[0], "a") as file:
                     file.write(clipping[3] + "\n")
                 file.close()
 
@@ -68,6 +68,6 @@ class Writer:
             if not os.path.exists(self.data_folder):
                 os.makedirs(self.data_folder)
 
-            with open(self.data_folder + str(title).rstrip() + '.md', "a") as file:
+            with open(self.data_folder + '/' + str(title).rstrip() + '.md', "a") as file:
                 file.write(text + "\n")
             file.close()

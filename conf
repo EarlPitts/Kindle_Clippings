@@ -1,0 +1,9 @@
+[FILE]
+data_folder = Data
+filename = My Clippings.txt
+tagged = Data/Tagged
+kindle_path = /run/media/k2sy12
+
+
+[TAGS]
+tags = anki,note,quote

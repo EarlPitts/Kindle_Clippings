@@ -5,6 +5,7 @@ the main program
 import sys
 import os
 import argparse
+import configparser
 
 from reader import Reader
 from writer import Writer
@@ -21,25 +22,18 @@ CONFIG_FILE = ".config"
 def main():
     """ the main function"""
 
-    tags = []
-
     if not os.path.exists(CONFIG_FILE):
         print("Error, config file not found!")
         return
 
-    with open(CONFIG_FILE, "r") as file:
-        for line in file:
-            #if "#" in line:
-            #    pass
-            if "FILENAME" in line:
-                filename = line.split("=")[1].strip()
-            if "DATA_FOLDER" in line:
-                data_folder = line.split("=")[1].rstrip()
-            if "TAGGED_FOLDER" in line:
-                tagged = line.split("=")[1].rstrip()
-            if "TAGS" in line:
-                tags = line.split("=")[1].rstrip().split(",")
-    file.close()
+    config = configparser.ConfigParser()
+    config.read('conf')
+
+    tags = config.get('TAGS', 'tags')
+    filename = config.get('FILE', 'filename')
+    tagged = config.get('FILE', 'tagged')
+    data_folder = config.get('FILE', 'data_folder')
+
 
     parser = argparse.ArgumentParser()
     parser.add_argument('kindle', help='path to kindle')
